@@ -1,3 +1,8 @@
+![AWS](https://img.shields.io/badge/AWS-CloudFormation-orange)
+![IaC](https://img.shields.io/badge/Infrastructure-as-Code-blue)
+![EC2](https://img.shields.io/badge/Amazon-EC2-red)
+![RDS](https://img.shields.io/badge/Amazon-RDS-blue)
+![License](https://img.shields.io/badge/License-MIT-green)
 # 🚀 Two-Tier Web Application Deployment using AWS CloudFormation
 
 Deployed a production style 2 Tier web application on AWS using **Infrastructure as Code (IaC)** with **AWS CloudFormation Nested Stacks**. This project demonstrates automated provisioning of networking, compute, security, and database resources using modular CloudFormation templates.

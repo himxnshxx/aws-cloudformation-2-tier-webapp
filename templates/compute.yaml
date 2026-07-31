@@ -1,0 +1,74 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: EC2 Web Server
+
+Parameters:
+
+  PublicSubnetId:
+    Type: AWS::EC2::Subnet::Id
+
+  EC2SecurityGroupId:
+    Type: AWS::EC2::SecurityGroup::Id
+
+  KeyName:
+    Type: AWS::EC2::KeyPair::KeyName
+
+Mappings:
+
+  RegionMap:
+    ap-south-1:
+      AMI: ami-01a00762f46d584a1
+
+Resources:
+
+  WebServer:
+    Type: AWS::EC2::Instance
+    Properties:
+
+      InstanceType: t2.micro
+
+      ImageId: !FindInMap
+        - RegionMap
+        - !Ref AWS::Region
+        - AMI
+
+      KeyName: !Ref KeyName
+
+      SubnetId: !Ref PublicSubnetId
+
+      SecurityGroupIds:
+        - !Ref EC2SecurityGroupId
+
+      Tags:
+        - Key: Name
+          Value: Apache-WebServer
+
+      UserData:
+        Fn::Base64: !Sub |
+          #!/bin/bash
+          apt-get update -y
+          apt-get install -y apache2
+
+          systemctl enable apache2
+          systemctl start apache2
+
+          cat <<EOF > /var/www/html/index.html
+          <!DOCTYPE html>
+          <html>
+          <head>
+          <title>AWS 2-Tier Web Application</title>
+          </head>
+          <body>
+          <h1>AWS 2-Tier Web Application</h1>
+          <p>Deployed using CloudFormation Nested Stacks</p>
+          <p>EC2 + Apache + RDS</p>
+          </body>
+          </html>
+          EOF
+
+Outputs:
+
+  InstanceId:
+    Value: !Ref WebServer
+
+  PublicIP:
+    Value: !GetAtt WebServer.PublicIp

@@ -1,0 +1,73 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Master CloudFormation Template for 2-Tier Web Application using Nested Stacks
+
+Parameters:
+
+  KeyName:
+    Type: AWS::EC2::KeyPair::KeyName
+    Description: Existing EC2 Key Pair
+
+  DBUsername:
+    Type: String
+    Default: admin
+    Description: Database Master Username
+
+  DBPassword:
+    Type: String
+    NoEcho: true
+    Description: Database Master Password
+
+Resources:
+
+  NetworkingStack:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: https://2tier-webapp.s3.ap-south-1.amazonaws.com/templates/networking.yaml
+
+  SecurityStack:
+    Type: AWS::CloudFormation::Stack
+    DependsOn: NetworkingStack
+    Properties:
+      TemplateURL: https://2tier-webapp.s3.ap-south-1.amazonaws.com/templates/security.yaml
+      Parameters:
+        VpcId: !GetAtt NetworkingStack.Outputs.VpcId
+
+  ComputeStack:
+    Type: AWS::CloudFormation::Stack
+    DependsOn: SecurityStack
+    Properties:
+      TemplateURL: https://2tier-webapp.s3.ap-south-1.amazonaws.com/templates/compute.yaml
+      Parameters:
+        PublicSubnetId: !GetAtt NetworkingStack.Outputs.PublicSubnetId
+        EC2SecurityGroupId: !GetAtt SecurityStack.Outputs.EC2SecurityGroupId
+        KeyName: !Ref KeyName
+
+  DatabaseStack:
+    Type: AWS::CloudFormation::Stack
+    DependsOn: SecurityStack
+    Properties:
+      TemplateURL: https://2tier-webapp.s3.ap-south-1.amazonaws.com/templates/database.yaml
+      Parameters:
+        PrivateSubnet1Id: !GetAtt NetworkingStack.Outputs.PrivateSubnet1Id
+        PrivateSubnet2Id: !GetAtt NetworkingStack.Outputs.PrivateSubnet2Id
+        RDSSecurityGroupId: !GetAtt SecurityStack.Outputs.RDSSecurityGroupId
+        DBUsername: !Ref DBUsername
+        DBPassword: !Ref DBPassword
+
+Outputs:
+
+  VpcId:
+    Description: VPC ID
+    Value: !GetAtt NetworkingStack.Outputs.VpcId
+
+  InstanceId:
+    Description: EC2 Instance ID
+    Value: !GetAtt ComputeStack.Outputs.InstanceId
+
+  PublicIP:
+    Description: EC2 Public IP
+    Value: !GetAtt ComputeStack.Outputs.PublicIP
+
+  DatabaseEndpoint:
+    Description: RDS Endpoint
+    Value: !GetAtt DatabaseStack.Outputs.DatabaseEndpoint

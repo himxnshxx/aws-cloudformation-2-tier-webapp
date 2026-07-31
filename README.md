@@ -1,9 +1,16 @@
-![AWS](https://img.shields.io/badge/AWS-CloudFormation-orange)
-![IaC](https://img.shields.io/badge/Infrastructure-as-Code-blue)
-![EC2](https://img.shields.io/badge/Amazon-EC2-red)
-![RDS](https://img.shields.io/badge/Amazon-RDS-blue)
-![License](https://img.shields.io/badge/License-MIT-green)
-# 🚀 Two-Tier Web Application Deployment using AWS CloudFormation
+<p align="center">
+
+![AWS](https://img.shields.io/badge/Amazon_AWS-232F3E?style=for-the-badge&logo=amazonaws&logoColor=white)
+![CloudFormation](https://img.shields.io/badge/CloudFormation-FF4F00?style=for-the-badge&logo=amazonaws&logoColor=white)
+![EC2](https://img.shields.io/badge/Amazon_EC2-FF9900?style=for-the-badge&logo=amazonec2&logoColor=white)
+![RDS](https://img.shields.io/badge/Amazon_RDS-527FFF?style=for-the-badge&logo=amazonrds&logoColor=white)
+![S3](https://img.shields.io/badge/Amazon_S3-569A31?style=for-the-badge&logo=amazons3&logoColor=white)
+![YAML](https://img.shields.io/badge/YAML-CB171E?style=for-the-badge&logo=yaml&logoColor=white)
+![Git](https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white)
+![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)
+
+</p>
+# 🚀 AWS CloudFormation - Two-Tier Web Application 
 
 Deployed a production style 2 Tier web application on AWS using **Infrastructure as Code (IaC)** with **AWS CloudFormation Nested Stacks**. This project demonstrates automated provisioning of networking, compute, security, and database resources using modular CloudFormation templates.
 

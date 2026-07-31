@@ -32,7 +32,8 @@ The infrastructure is modular, reusable, and follows Infrastructure as Code (IaC
                               │
                      Private Subnet
                               │
-                    Amazon RDS MySQL
+                         Amazon RDS
+                           (MySQL)
 ```
 
 ---

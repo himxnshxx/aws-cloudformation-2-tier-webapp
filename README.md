@@ -10,7 +10,7 @@
 ![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)
 
 </p>
-# 🚀 AWS CloudFormation - Two-Tier Web Application 
+## 🚀 AWS CloudFormation - Two-Tier Web Application 
 
 Deployed a production style 2 Tier web application on AWS using **Infrastructure as Code (IaC)** with **AWS CloudFormation Nested Stacks**. This project demonstrates automated provisioning of networking, compute, security, and database resources using modular CloudFormation templates.
 
